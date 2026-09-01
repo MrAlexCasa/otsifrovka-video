@@ -1,202 +1,162 @@
 <!DOCTYPE html>
 <html lang="ru">
-   <meta name="yandex-verification" content="0f595a08aba7e42d" />
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Мощное SEO для Яндекса в Новокузнецке и области -->
-    <title>Оцифровка видеокассет в Новокузнецке — ул. Кирова, 84</title>
-    <meta name="description" content="Качественная оцифровка видеокассет VHS, VHS-C, Hi8, MiniDV, DVD в Новокузнецке. Цена 200 ₽ за час. Бережно сохраним архив. Работаем с Прокопьевском, Киселевском, Междуреченском.">
-    <meta name="keywords" content="оцифровка видеокассет новокузнецк, переписать кассету на флешку новокузнецк, оцифровка вхс кирова 84, оцифровать видеокассету цена новокузнецк, прокопьевск, киселевск">
+    <!-- Код подтверждения Яндекса -->
+    <meta name="yandex-verification" content="cf595a88aba7e42d" />
+    
+    <!-- SEO-оптимизация -->
+    <title>Оцифровка видеокассет в Новокузнецке</title>
+    <meta name="description" content="Качественная оцифровка видеокассет VHS, VHS-C, Hi8, MiniDV, DVD в Новокузнецке. Цена 200 ₽ за час. Бережно сохраним архив.">
     
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: Arial, sans-serif;
         }
 
         body {
-            background-color: #f7f5f0;
-            color: #333333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            background-color: #ffffff;
+            color: #000000;
         }
 
-        .container {
-            background: #ffffff;
+        /* Полная копия шапки Wix */
+        .wix-banner {
             width: 100%;
-            max-width: 480px;
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            border: 1px solid #eaeaea;
+            max-width: 980px;
+            margin: 0 auto;
+            height: auto;
+            display: block;
         }
 
-        /* Верхний баннер */
-        .banner {
-            background: #111111;
-            position: relative;
-            height: 200px;
-            display: flex;
-            align-items: flex-end;
-            padding: 20px;
-            background-image: url('banner.jpg');
-            background-size: cover;
-            background-position: center;
+        .wix-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
-        .banner::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%);
-        }
-
-        .banner-text {
-            position: relative;
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        /* Основной контент */
-        .content {
-            padding: 35px 25px;
+        /* Контентная область как на Wix */
+        .wix-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 60px 20px;
             text-align: center;
         }
 
         h1 {
-            font-size: 22px;
-            font-weight: 700;
-            color: #2c2523;
-            margin-bottom: 25px;
-            line-height: 1.3;
+            font-size: 24px;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 30px;
+            letter-spacing: 0.5px;
         }
 
-        .highlight-text {
-            font-size: 17px;
-            font-weight: 600;
-            color: #333333;
-            margin-bottom: 20px;
+        .sub-text {
+            font-size: 18px;
+            color: #000000;
+            margin-bottom: 25px;
+        }
+
+        .price-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 25px;
+        }
+
+        .detail-text {
+            font-size: 16px;
+            color: #000000;
+            margin-bottom: 50px;
             line-height: 1.4;
         }
 
-        .price {
-            font-size: 20px;
-            font-weight: 700;
-            color: #111111;
-            margin-bottom: 10px;
+        /* Кнопки в оригинальном стиле Wix */
+        .wix-buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
         }
 
-        .features {
-            font-size: 14px;
-            color: #555555;
-            text-align: left;
-            background: #fdfbf7;
-            padding: 15px;
-            border-radius: 12px;
-            margin: 20px 0;
-            line-height: 1.6;
-        }
-
-        .note {
-            font-size: 14px;
-            color: #666666;
-            line-height: 1.5;
-            margin-bottom: 25px;
-        }
-
-        /* Карта */
-        .map-container {
-            width: 100%;
-            height: 200px;
-            margin-bottom: 25px;
-            border-radius: 14px;
-            overflow: hidden;
-            border: 1px solid #ddd;
-        }
-
-        /* Кнопки контактов */
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 16px;
-            margin-bottom: 15px;
-            border-radius: 30px;
+        .wix-btn {
+            display: inline-block;
+            min-width: 180px;
+            padding: 12px 24px;
+            border: 1px solid #000000;
+            border-radius: 20px;
+            background-color: #ffffff;
+            color: #000000;
             text-decoration: none;
             font-size: 16px;
-            font-weight: 600;
-            color: #ffffff;
-            background-color: #0088cc;
-            border: 1px solid #0088cc;
             transition: all 0.2s ease;
         }
 
-        .btn:hover {
-            background-color: #0077b3;
+        .wix-btn:hover {
+            background-color: #f0f0f0;
         }
 
-        .btn.ok {
-            background-color: #ee8208;
-            border-color: #ee8208;
-        }
-        .btn.ok:hover {
-            background-color: #d67507;
-        }
-
-        .btn.avito {
-            background-color: #5cf200;
-            border-color: #5cf200;
-            color: #111111;
-        }
-        .btn.avito:hover {
-            background-color: #4ecb00;
+        /* Исправленная универсальная карта Яндекса */
+        .map-section {
+            max-width: 480px;
+            margin: 0 auto 30px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #cccccc;
         }
 
-        .btn:last-child {
-            margin-bottom: 0;
+        @media (max-width: 768px) {
+            .wix-buttons-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            .wix-btn {
+                width: 100%;
+                max-width: 280px;
+            }
+            h1 { font-size: 20px; }
+            .sub-text, .price-text { font-size: 16px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="banner">
-            <div class="banner-text">VHS • Video8 • Digital8 • Hi8 • MiniDV</div>
+    <!-- Шапка-коллаж с кассетами и молодоженами -->
+    <div class="wix-banner">
+        <img src="banner.jpg" alt="Оцифровка видеокассет">
+    </div>
+
+    <!-- Текстовый блок один в один как на Wix -->
+    <div class="wix-content">
+        <h1>Оцифровка видеокассет в Новокузнецке</h1>
+        
+        <p class="sub-text">Сохраню ваши семейные воспоминания в цифровом формате</p>
+        
+        <p class="price-text">200 ₽ за каждый начатый час записи</p>
+        
+        <p class="detail-text">Точную стоимость сообщу после просмотра кассет и определения продолжительности записи.</p>
+
+        <!-- Оригинальные овальные кнопки Wix -->
+        <div class="wix-buttons-container">
+            <a href="https://t.me" target="_blank" class="wix-btn">Написать в Телеграм</a>
+            <a href="https://avito.ru" target="_blank" class="wix-btn">Я на Авито</a>
+            <a href="https://ok.ru" target="_blank" class="wix-btn">Написать в Одноклассники</a>
         </div>
 
-        <div class="content">
-            <h1>Оцифровка videoкассет в Новокузнецке</h1>
-            
-            <p class="highlight-text">Сохраню ваши семейные воспоминания в цифровом формате</p>
-            
-            <p class="price">200 ₽ за 1 час записи</p>
-            <p class="note">Бесплатный просмотр кассет и определение фактического времени до начала работы.</p>
-
-            <div class="features">
-                • Передача на флешку, жесткий диск или в облако<br>
-                • В наличии флешки Mirex и Kingston<br>
-                • Работа с городами: Прокопьевск, Киселевск, Междуреченск, Осинники, Мыски (Авито Доставка / СДЭК)
-            </div>
-
-            <!-- Интерактивная карта Яндекса с вашей геолокацией -->
-            <div class="map-container">
-                <iframe src="https://yandex.ru" width="100%" height="200" frameborder="0"></iframe>
-            </div>
-
-            <!-- 3 ваши рабочие кнопки -->
-            <a href="https://t.me" target="_blank" class="btn">Группа в Телеграм</a>
-            <a href="https://ok.ru" target="_blank" class="btn ok">Группа в Одноклассниках</a>
-            <a href="https://avito.ru" target="_blank" class="btn avito">Профиль на Авито (85+ отзывов)</a>
+        <!-- Починенная интерактивная карта -->
+        <div class="map-section">
+            <iframe src="https://yandex.ru" width="100%" height="240" frameborder="0"></iframe>
         </div>
     </div>
 
+    <!-- Чат-бот Jivo (сообщения идут в Telegram) -->
+    <script src="//code.jivo.ru/widget/j6878Y89vU" async></script>
+
 </body>
-<script src="//code.jivo.ru/widget/47UA0rvVND" async></script>
 </html>
