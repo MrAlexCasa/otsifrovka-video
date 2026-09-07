@@ -1373,4 +1373,75 @@ ul.font_100,ol.font_100{color:#080808;font-family:"Arial, Helvetica, sans-serif"
 
 
 
-<div data-hook="popover-portal" class="comp-mskmt6be comp-mskmt6be_ooi" style="position: static; top: 0px; left: 0px; width: 0px; height: 0px;"></div></body></html>
+<div data-hook="popover-portal" class="comp-mskmt6be comp-mskmt6be_ooi" style="position: static; top: 0px; left: 0px; width: 0px; height: 0px;"></div>
+<script>
+(function(){
+  function ready(fn){ if(document.readyState!=='loading'){fn();} else { document.addEventListener('DOMContentLoaded', fn);} }
+  ready(function(){
+    var form = document.querySelector('form[aria-label="Contact Form"]');
+    if(!form) return;
+    var nameInput = document.getElementById('form-field-input-771e3559-035f-4f2e-b0b4-e6f5a5682997-comp-mskmt6be-');
+    var phoneInput = document.getElementById('form-field-input-da285da2-2e36-48e2-22df-4ba46569f9b4-comp-mskmt6be-');
+    var emailInput = document.getElementById('form-field-input-a16524cf-9969-4225-3ce7-6f134dd9bbf9-comp-mskmt6be-');
+    var submitBtn = form.querySelector('[data-hook="submit-button"]');
+    var feedbackWrap = form.querySelector('[role="region"][aria-live="polite"] div');
+    if(!submitBtn) return;
+    var newBtn = submitBtn.cloneNode(true);
+    submitBtn.parentNode.replaceChild(newBtn, submitBtn);
+    var sending = false;
+    function showFeedback(msg, isError){
+      if(!feedbackWrap) return;
+      feedbackWrap.textContent = msg;
+      feedbackWrap.style.opacity = '1';
+      feedbackWrap.style.color = isError ? '#b20f03' : '#2F1B12';
+      feedbackWrap.style.fontSize = '14px';
+      feedbackWrap.style.marginTop = '8px';
+    }
+    newBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      if(sending) return;
+      var name = nameInput ? nameInput.value.trim() : '';
+      var phone = phoneInput ? phoneInput.value.trim() : '';
+      var email = emailInput ? emailInput.value.trim() : '';
+      if(!name || !phone){
+        if(!name && nameInput){ nameInput.focus(); }
+        else if(!phone && phoneInput){ phoneInput.focus(); }
+        showFeedback('Пожалуйста, заполните обязательные поля: Имя и Телефон.', true);
+        return;
+      }
+      sending = true;
+      showFeedback('Отправка...', false);
+      fetch('https://formsubmit.co/ajax/otsifrovka-video@mail.ru', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          'Имя': name,
+          'Телефон': phone,
+          'Эл. почта': email || 'не указана',
+          '_subject': 'Новая заявка с сайта otsifrovka-video.ru',
+          '_template': 'table'
+        })
+      }).then(function(response){ return response.json(); }).then(function(data){
+        sending = false;
+        var ok = data && (data.success === true || data.success === 'true');
+        if(ok){
+          showFeedback('Спасибо! Ваша заявка отправлена, мы свяжемся с вами в ближайшее время.', false);
+          if(nameInput) nameInput.value = '';
+          if(phoneInput) phoneInput.value = '';
+          if(emailInput) emailInput.value = '';
+        } else {
+          showFeedback('Заявка принята. Если это первая отправка формы, подтвердите активацию по ссылке из письма, отправленного на otsifrovka-video@mail.ru.', true);
+        }
+      }).catch(function(){
+        sending = false;
+        showFeedback('Не удалось отправить заявку. Пожалуйста, свяжитесь с нами напрямую.', true);
+      });
+    });
+  });
+})();
+</script>
+</body></html>
