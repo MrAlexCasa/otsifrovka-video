@@ -1388,7 +1388,7 @@ ul.font_100,ol.font_100{color:#080808;font-family:"Arial, Helvetica, sans-serif"
     if(!submitBtn) return;
     var newBtn = submitBtn.cloneNode(true);
     submitBtn.parentNode.replaceChild(newBtn, submitBtn);
-    var sending = false;
+    var TARGET_EMAIL = 'otsifrovka-video@mail.ru';
     function showFeedback(msg, isError){
       if(!feedbackWrap) return;
       feedbackWrap.textContent = msg;
@@ -1400,7 +1400,6 @@ ul.font_100,ol.font_100{color:#080808;font-family:"Arial, Helvetica, sans-serif"
     newBtn.addEventListener('click', function(e){
       e.preventDefault();
       e.stopPropagation();
-      if(sending) return;
       var name = nameInput ? nameInput.value.trim() : '';
       var phone = phoneInput ? phoneInput.value.trim() : '';
       var email = emailInput ? emailInput.value.trim() : '';
@@ -1410,36 +1409,21 @@ ul.font_100,ol.font_100{color:#080808;font-family:"Arial, Helvetica, sans-serif"
         showFeedback('Пожалуйста, заполните обязательные поля: Имя и Телефон.', true);
         return;
       }
-      sending = true;
-      showFeedback('Отправка...', false);
-      fetch('https://formsubmit.co/ajax/otsifrovka-video@mail.ru', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          'Имя': name,
-          'Телефон': phone,
-          'Эл. почта': email || 'не указана',
-          '_subject': 'Новая заявка с сайта otsifrovka-video.ru',
-          '_template': 'table'
-        })
-      }).then(function(response){ return response.json(); }).then(function(data){
-        sending = false;
-        var ok = data && (data.success === true || data.success === 'true');
-        if(ok){
-          showFeedback('Спасибо! Ваша заявка отправлена, мы свяжемся с вами в ближайшее время.', false);
-          if(nameInput) nameInput.value = '';
-          if(phoneInput) phoneInput.value = '';
-          if(emailInput) emailInput.value = '';
-        } else {
-          showFeedback('Заявка принята. Если это первая отправка формы, подтвердите активацию по ссылке из письма, отправленного на otsifrovka-video@mail.ru.', true);
-        }
-      }).catch(function(){
-        sending = false;
-        showFeedback('Не удалось отправить заявку. Пожалуйста, свяжитесь с нами напрямую.', true);
-      });
+      var subject = 'Новая заявка с сайта otsifrovka-video.ru';
+      var bodyLines = [
+        'Имя: ' + name,
+        'Телефон: ' + phone,
+        'Эл. почта: ' + (email || 'не указана')
+      ];
+      var mailtoUrl = 'mailto:' + encodeURIComponent(TARGET_EMAIL)
+        + '?subject=' + encodeURIComponent(subject)
+        + '&body=' + encodeURIComponent(bodyLines.join('\n'));
+      // mailto: is a native browser/OS protocol handler - no network request is made
+      // to any third-party server, so it cannot be intercepted or flagged by antivirus
+      // "safe browsing" / data-exfiltration heuristics the way third-party form-relay
+      // APIs (FormSubmit, Web3Forms, etc.) can be.
+      window.location.href = mailtoUrl;
+      showFeedback('Открывается ваша почтовая программа для отправки заявки на ' + TARGET_EMAIL + '. Если окно не открылось, напишите нам напрямую на эту почту или позвоните по указанному телефону.', false);
     });
   });
 })();
