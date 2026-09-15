@@ -148,7 +148,7 @@ def footer_html():
     </div>
   </div>
 </footer>
-<a href="{telegram}" target="_blank" rel="noreferrer noopener" class="floating-cta">💬 Написать в Телеграм</a>
+<a href="{telegram}" target="_blank" rel="noreferrer noopener" class="floating-cta" aria-label="Написать в Телеграм"><span aria-hidden="true">&#128172;</span><span class="floating-cta__label">Написать в Телеграм</span></a>
 <script src="/assets/js/site.js"></script>
 """.format(
         site_name=SITE_NAME,
