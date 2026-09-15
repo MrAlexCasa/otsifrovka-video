@@ -556,6 +556,55 @@ p { margin: 0 0 16px; }
   text-decoration: none;
 }
 
+/* Advantages ("Почему обращаются ко мне") */
+.advantages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 800px) {
+  .advantages-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .advantages-grid { grid-template-columns: 1fr; }
+}
+.advantage-card {
+  background: #fff;
+  border: 1px solid var(--brand-shade-2);
+  border-radius: 14px;
+  padding: 20px;
+}
+.advantage-card h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+.advantage-card p {
+  margin: 0;
+  color: var(--brand-shade-3);
+  font-size: 15px;
+}
+
+/* FAQ */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.faq-item {
+  background: #fff;
+  border: 1px solid var(--brand-shade-2);
+  border-radius: 14px;
+  padding: 18px 22px;
+}
+.faq-item h3 {
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+.faq-item p {
+  margin: 0;
+  color: var(--brand-shade-3);
+}
+
 /* Contact block */
 .contact-methods {
   display: grid;
