@@ -355,23 +355,50 @@ p { margin: 0 0 16px; }
   margin-top: 8px;
 }
 
-/* Floating contact button (mobile-friendly always-visible CTA) */
+/* Floating contact button (mobile-friendly always-visible CTA).
+   Kept compact (circular icon) so it never covers nearby links/cards
+   in grids that end up in the bottom-right corner while scrolling. */
 .floating-cta {
   position: fixed;
-  right: 20px;
-  bottom: 20px;
+  right: 18px;
+  bottom: 18px;
   z-index: 900;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: var(--brand-accent);
   color: #fff;
-  padding: 14px 22px;
-  border-radius: 30px;
+  border-radius: 50%;
   font-weight: 700;
-  font-size: 15px;
-  box-shadow: 0 6px 20px rgba(47, 27, 18, 0.3);
+  font-size: 22px;
+  line-height: 1;
+  box-shadow: 0 6px 20px rgba(47, 27, 18, 0.35);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.floating-cta__label {
+  display: none;
 }
 .floating-cta:hover {
   background: var(--brand-accent-hover);
   text-decoration: none;
+}
+/* On roomy desktop viewports, expand into a labeled pill for clarity —
+   there is enough free space there that overlap is not an issue. */
+@media (min-width: 1000px) {
+  .floating-cta {
+    width: auto;
+    height: auto;
+    padding: 14px 22px;
+    border-radius: 30px;
+    font-size: 15px;
+    gap: 8px;
+  }
+  .floating-cta__label {
+    display: inline;
+  }
 }
 
 /* ---------------------------------------------------------------- Sections */
