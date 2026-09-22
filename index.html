@@ -356,57 +356,65 @@
 
 <footer class="footer" style="padding: 60px 0; background: #2b1a13; color: #fff;">
     <div class="container">
-        <div style="display: flex; gap: 40px; justify-content: space-between; flex-wrap: wrap; text-align: left;">
+        <!-- ВЕРХНИЙ РЯД: ТРИ РОВНЫЕ КОЛОНКИ -->
+        <div style="display: flex; gap: 40px; justify-content: space-between; flex-wrap: wrap; text-align: left; margin-bottom: 30px;">
             
-            <!-- КОЛОНКА 1: Описание и ПОДЕЛИТЬСЯ -->
+            <!-- КОЛОНКА 1: Описание -->
             <div style="flex: 1; min-width: 250px;">
                 <h4 style="color: #fff; margin-bottom: 15px;">Оцифровка видеокассет</h4>
-                <p style="color: #ccc; line-height: 1.6; margin-bottom: 25px;">Бережно сохраняем ваши семейные сокровища и теплые воспоминания в Новокузнецке.</p>
-                
-                <h5 style="color: #fff; margin-bottom: 10px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Поделиться в соцсетях:</h5>
-                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                    <!-- VK -->
-                    <a href="https://vk.com" target="_blank" title="Поделиться во ВКонтакте" style="display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #0077ff; border-radius: 50%; color: #fff; text-decoration: none; font-weight: bold; font-size: 12px;">ВК</a>
-                    <!-- OK -->
-                    <a href="https://ok.ru" target="_blank" title="Поделиться в Одноклассниках" style="display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #ed812b; border-radius: 50%; color: #fff; text-decoration: none; font-weight: bold; font-size: 12px;">ОК</a>
-                    <!-- Telegram -->
-                    <a href="https://t.me" target="_blank" title="Поделиться в Telegram" style="display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #229ed9; border-radius: 50%; color: #fff; text-decoration: none; font-weight: bold; font-size: 12px;">ТГ</a>
-                    <!-- WhatsApp -->
-                    <a href="https://whatsapp.com" target="_blank" title="Поделиться в WhatsApp" style="display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #25d366; border-radius: 50%; color: #fff; text-decoration: none; font-weight: bold; font-size: 12px;">WA</a>
-                    <!-- Скопировать ссылку -->
-                    <button onclick="navigator.clipboard.writeText('https://otsifrovka-video.ru'); alert('Ссылка скопирована!');" title="Скопировать ссылку на сайт" style="display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #555; border: none; border-radius: 50%; color: #fff; cursor: pointer; font-weight: bold; font-size: 10px;">LINK</button>
-                </div>
+                <p style="color: #ccc; line-height: 1.6; margin: 0;">Бережно сохраняем ваши семейные сокровища и теплые воспоминания в Новокузнецке.</p>
             </div>
             
-            <!-- КОЛОНКА 2: Контакты и Связь -->
+            <!-- КОЛОНКА 2: Контакты с Email -->
             <div style="flex: 1; min-width: 250px;">
                 <h4 style="color: #fff; margin-bottom: 15px;">Контакты</h4>
                 <p style="margin-bottom: 5px; font-weight: bold; color: #fff;">Мастер: Александр</p>
                 <p style="margin-bottom: 5px;"><a href="tel:+79530650679" style="color: #fff; text-decoration: underline;">+7-953-065-06-79</a></p>
-                <p style="margin-bottom: 25px; color: #ccc;">г. Новокузнецк, Кемеровская обл., Кирова 84</p>
-                
-                <h5 style="color: #fff; margin-bottom: 10px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Мы в соцсетях:</h5>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <a href="https://t.me" target="_blank" style="display: inline-block; padding: 10px 18px; background: #0088cc; color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 500;">Telegram</a>
-                    <a href="https://avito.ru" target="_blank" style="display: inline-block; padding: 10px 18px; background: #9acd32; color: #000; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: bold;">Авито</a>
-                    <a href="https://ok.ru" target="_blank" style="display: inline-block; padding: 10px 18px; background: #ed812b; color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 500;">Одноклассники</a>
+                <p style="margin-bottom: 5px;"><a href="mailto:otsifrovka-video@mail.ru" style="color: #fff; text-decoration: underline;">otsifrovka-video@mail.ru</a></p>
+                <p style="color: #ccc; margin: 0;">г. Новокузнецк, Кемеровская обл., Кирова 84</p>
+            </div>
+            
+            <!-- КОЛОНКА 3: Как нас найти (Яндекс Карта) -->
+            <div style="flex: 1; min-width: 280px;">
+                <h4 style="color: #fff; margin-bottom: 15px;">Как нас найти</h4>
+                <div style="width: 100%; max-width: 400px; height: 180px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                    <iframe src="https://yandex.ru" width="100%" height="180" frameborder="0" style="border: none;"></iframe>
+                </div>
+            </div>
+        </div>
+        
+        <!-- НИЖНИЙ РЯД: СОЦСЕТИ И ШАРИНГ НА ОДНОМ УРОВНЕ -->
+        <div style="display: flex; gap: 40px; justify-content: space-between; flex-wrap: wrap; text-align: left; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1);">
+            
+            <!-- Поделиться в соцсетях -->
+            <div style="flex: 1; min-width: 250px;">
+                <h5 style="color: #fff; margin-bottom: 12px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Поделиться в соцсетях:</h5>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <a href="https://vk.com" target="_blank" title="Поделиться во ВКонтакте" style="display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #0077ff; border-radius: 50%; color: #fff; text-decoration: none; font-weight: bold; font-size: 12px;">ВК</a>
+                    <a href="https://ok.ru" target="_blank" title="Поделиться в Одноклассниках" style="display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #ed812b; border-radius: 50%; color: #fff; text-decoration: none; font-weight: bold; font-size: 12px;">ОК</a>
+                    <a href="https://t.me" target="_blank" title="Поделиться в Telegram" style="display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #229ed9; border-radius: 50%; color: #fff; text-decoration: none; font-weight: bold; font-size: 12px;">ТГ</a>
+                    <a href="https://whatsapp.com" target="_blank" title="Поделиться в WhatsApp" style="display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #25d366; border-radius: 50%; color: #fff; text-decoration: none; font-weight: bold; font-size: 12px;">WA</a>
+                    <button onclick="navigator.clipboard.writeText('https://otsifrovka-video.ru'); alert('Ссылка скопирована!');" title="Скопировать ссылку" style="display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #555; border: none; border-radius: 50%; color: #fff; cursor: pointer; font-weight: bold; font-size: 10px;">LINK</button>
                 </div>
             </div>
             
-                                                        <!-- КОЛОНКА 3: Как нас найти (Яндекс Карта) -->
-            <div style="flex: 1; min-width: 280px;">
-                <h4 style="color: #fff; margin-bottom: 15px;">Как нас найти</h4>
-                <div style="width: 100%; max-width: 400px; height: 230px; margin-top: 15px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-                    <iframe src="https://yandex.ru" width="100%" height="230" frameborder="0" style="border: none;"></iframe>
+            <!-- Мы в соцсетях -->
+            <div style="flex: 1; min-width: 250px;">
+                <h5 style="color: #fff; margin-bottom: 12px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Мы в соцсетях:</h5>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <a href="https://t.me" target="_blank" style="display: inline-block; padding: 8px 15px; background: #0088cc; color: #fff; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 500;">Telegram</a>
+                    <a href="https://avito.ru" target="_blank" style="display: inline-block; padding: 8px 15px; background: #9acd32; color: #000; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: bold;">Авито</a>
+                    <a href="https://ok.ru" target="_blank" style="display: inline-block; padding: 8px 15px; background: #ed812b; color: #fff; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 500;">Одноклассники</a>
                 </div>
             </div>
-
-
+            
+            <!-- Пустая заглушка справа для идеального баланса трех колонок -->
+            <div style="flex: 1; min-width: 280px;"></div>
         </div>
         
-        <!-- Нижняя плашка копирайта строго по центру -->
-        <div style="margin-top: 40px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; width: 100%; clear: both;">
-            <p style="font-size: 14px; color: #aaa; margin: 0;">&copy; 2026. Сохраняем лучшее.</p>
+        <!-- Нижняя плашка копирайта -->
+        <div style="margin-top: 40px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+            <p style="font-size: 13px; color: #888; margin: 0;">&copy; 2026. Сохраняем лучшее.</p>
         </div>
     </div>
 </footer>
