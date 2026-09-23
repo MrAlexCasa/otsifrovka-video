@@ -31,7 +31,7 @@
   font-family: 'Recoleta';
   font-style: normal;
   font-weight: 400;
-  src: url('//static.parastorage.com/fonts/v2/9fd8a90e-755f-4076-9f75-cdf4f05e2e4a/v1/recoleta.cyrillic.woff2') format('woff2');
+  src: url('../fonts/recoleta.cyrillic.woff2') format('woff2');
   unicode-range: U+0400-04FF;
   font-display: swap;
 }
