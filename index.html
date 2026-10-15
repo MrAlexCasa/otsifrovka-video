@@ -311,37 +311,75 @@
 </section>
 <!-- Конец блока с ценами -->
 
-<section class="section text-center" style="padding: 60px 0; background: #fdfdfd;">
-    <div class="container">
-        <h2 style="margin-bottom: 15px; font-weight: bold; color: #222;">Отзывы наших клиентов</h2>
-        <p style="margin-bottom: 40px; color: #666; font-size: 16px;">Наш средний рейтинг — <span style="color: #ff9800; font-weight: bold;">★ 5.0</span> на Яндекс Картах и Авито</p>
-        
-        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; text-align: left; max-width: 1100px; margin: 0 auto;">
-            <!-- Карточка 1 -->
-            <div style="flex: 1; min-width: 300px; max-width: 340px; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid #ff9800;">
-                <div style="font-weight: bold; margin-bottom: 5px; color: #222;">Сергей К.</div>
-                <div style="color: #ff9800; margin-bottom: 12px; font-size: 14px;">★★★★★ <span style="color: #999; font-size: 12px; margin-left: 5px;">Яндекс Карты</span></div>
-                <p style="font-size: 14px; color: #444; line-height: 1.5; margin: 0;">Отдал на оцифровку старые семейные кассеты VHS. Александр сделал всё быстро, качество отличное. Очень удобно, что готовые файлы скинул прямо на Яндекс Диск. Рекомендую!</p>
-            </div>
-            
-            <!-- Карточка 2 -->
-            <div style="flex: 1; min-width: 300px; max-width: 340px; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid #9acd32;">
-                <div style="font-weight: bold; margin-bottom: 5px; color: #222;">Татьяна</div>
-                <div style="color: #9acd32; margin-bottom: 12px; font-size: 14px;">★★★★★ <span style="color: #999; font-size: 12px; margin-left: 5px;">Сделка состоялась (Авито)</span></div>
-                <p style="font-size: 14px; color: #444; line-height: 1.5; margin: 0;">Большое спасибо мастеру за бесплатный предпросмотр! Оказалось, что одна кассета была полностью пустая, за неё денег не взял. Всё честно, цена 200 рублей за час, без накруток.</p>
-            </div>
+<!-- Отзывы с Авито (автоматически) -->
+<section class="reviews-section" style="padding: 60px 20px; background: #fafafa;">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <h2 style="text-align: center; margin-bottom: 10px; font-weight: bold; color: #222;">Отзывы наших клиентов</h2>
+    <p id="avito-rating" style="text-align: center; font-size: 1.15rem; margin-bottom: 40px; color: #555;">
+      Загрузка отзывов...
+    </p>
 
-            <!-- Карточка 3 -->
-            <div style="flex: 1; min-width: 300px; max-width: 340px; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid #ff9800;">
-                <div style="font-weight: bold; margin-bottom: 5px; color: #222;">Михаил</div>
-                <div style="color: #ff9800; margin-bottom: 12px; font-size: 14px;">★★★★★ <span style="color: #999; font-size: 12px; margin-left: 5px;">Яндекс Карты</span></div>
-                <p style="font-size: 14px; color: #444; line-height: 1.5; margin: 0;">Оцифровывал кассеты MiniDV от старой видеокамеры. Качество порадовало, звук отличный, картинка не дергается. Привозил лично на Кирова 84. Мастер Александр — профессионал.</p>
-            </div>
-        </div>
+    <div id="avito-reviews" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+      <!-- отзывы появятся здесь -->
     </div>
+
+    <div style="text-align: center; margin-top: 40px;">
+      <a href="https://www.avito.ru/user/84121790/profile" target="_blank" rel="noopener"
+         style="display: inline-block; padding: 12px 28px; background: #00aaff; color: white; border-radius: 8px; text-decoration: none; font-weight: 500;">
+        Смотреть все 90 отзывов на Авито →
+      </a>
+    </div>
+  </div>
 </section>
 
-</section>
+<script>
+(async function() {
+  const WORKER_URL = "https://misty-union-473e.alex-emeljanoq.workers.dev";
+  const ratingEl = document.getElementById("avito-rating");
+  const container = document.getElementById("avito-reviews");
+
+  try {
+    const res = await fetch(WORKER_URL);
+    const data = await res.json();
+
+    if (data.error) {
+      ratingEl.textContent = "Не удалось загрузить отзывы";
+      return;
+    }
+
+    const score = data.rating?.score || 5.0;
+    const count = data.rating?.reviewsCount || data.reviews?.length || 0;
+
+    ratingEl.innerHTML = `★ <strong>${score.toFixed(1)}</strong> · ${count} отзывов на Авито`;
+
+    const reviews = (data.reviews || []).slice(0, 6);
+
+    let html = "";
+    reviews.forEach(r => {
+      const stars = "★".repeat(r.score || 5) + "☆".repeat(5 - (r.score || 5));
+      const name = r.sender?.name || "Клиент";
+      const text = r.text || "";
+      const date = r.createdAt 
+        ? new Date(r.createdAt * 1000).toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" })
+        : "";
+
+      html += `
+        <div style="background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+          <div style="color: #f5a623; font-size: 1.1rem; margin-bottom: 6px;">${stars}</div>
+          <div style="font-weight: 600; margin-bottom: 4px;">${name}</div>
+          <div style="font-size: 0.85rem; color: #888; margin-bottom: 12px;">${date}</div>
+          <div style="line-height: 1.5; color: #333;">${text}</div>
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+  } catch (e) {
+    ratingEl.textContent = "Ошибка загрузки отзывов";
+    console.error(e);
+  }
+})();
+</script>
 
 
 <!-- ============================== FAQ ============================== -->
