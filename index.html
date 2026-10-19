@@ -700,51 +700,7 @@
 </body>
 </html>
 
-        chatWindow.style.display = 'none';
-    });
 
-    async function sendMessage() {
-        const text = userInput.value.trim();
-        if (!text) return;
-
-        // Добавляем сообщение пользователя на экран
-        appendMessage('Вы', text);
-        userInput.value = '';
-
-        // Показываем индикатор загрузки
-        const loadingId = appendMessage('ИИ-Ассистент', 'Думает...');
-
-        try {
-            const response = await fetch(WORKER_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: text })
-            });
-            const data = await response.json();
-            
-            // Удаляем индикатор загрузки и ставим ответ ИИ
-            document.getElementById(loadingId).innerHTML = `<strong>ИИ-Ассистент:</strong> ${data.reply || 'Извините, произошла ошибка.'}`;
-        } catch (error) {
-            document.getElementById(loadingId).innerHTML = `<strong>ИИ-Ассистент:</strong> Ошибка связи с сервером.`;
-        }
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-
-    function appendMessage(sender, text) {
-        const id = 'msg-' + Math.random().toString(36).substr(2, 9);
-        const msgDiv = document.createElement('div');
-        msgDiv.id = id;
-        msgDiv.style.marginBottom = '10px';
-        msgDiv.innerHTML = `<strong>${sender}:</strong> ${text}`;
-        messagesContainer.appendChild(msgDiv);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        return id;
-    }
-
-    sendBtn.addEventListener('click', sendMessage);
-    userInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage();
-    });
 })();
 </script>
 
