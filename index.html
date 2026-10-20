@@ -637,9 +637,8 @@
     const userInput = document.getElementById('chat-user-input');
     const messagesContainer = document.getElementById('chat-messages');
 
-    // Адрес твоего ИИ-воркера
-        const WORKER_URL = 'https://workers.dev';
-
+    // Твой точный адрес ИИ-воркера Cloudflare
+    const WORKER_URL = 'https://workers.dev';
 
     toggleBtn.addEventListener('click', () => {
         chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
@@ -661,22 +660,23 @@
         try {
             const response = await fetch(WORKER_URL, {
                 method: 'POST',
+                mode: 'cors',
                 headers: { 
-                    'Content-Type': 'application/json; charset=utf-8'
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json' 
                 },
                 body: JSON.stringify({ message: text })
             });
             
-            const data = await response.json();
-            
-            if (data.reply) {
-                document.getElementById(loadingId).innerHTML = `<strong>ИИ-Ассистент:</strong> ${data.reply}`;
-            } else {
-                document.getElementById(loadingId).innerHTML = `<strong>ИИ-Ассистент:</strong> ${data.error || 'Не удалось получить ответ.'}`;
+            if (!response.ok) {
+                throw new Error('Код ошибки от сервера: ' + response.status);
             }
+            
+            const data = await response.json();
+            document.getElementById(loadingId).innerHTML = `<strong>ИИ-Ассистент:</strong> ${data.reply || 'Не удалось получить ответ.'}`;
         } catch (error) {
-            console.error('Ошибка:', error);
-            document.getElementById(loadingId).innerHTML = `<strong>ИИ-Ассистент:</strong> Ошибка связи с сервером.`;
+            console.error('Ошибка отправки:', error);
+            document.getElementById(loadingId).innerHTML = `<strong>ИИ-Ассистент:</strong> Ошибка связи с сервером. Попробуйте еще раз.`;
         }
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
@@ -698,7 +698,6 @@
     });
 })();
 </script>
-      
 </body>
 </html>
 
