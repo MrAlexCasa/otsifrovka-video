@@ -33,9 +33,9 @@ NAV_SERVICES = [
 NAV_MAIN = [
     ("/", "Главная"),
     ("__services__", "Форматы кассет"),  # dropdown placeholder
-    ("/ceny", "Цены"),
-    ("/kak-eto-rabotaet", "Как это работает"),
-    ("/kontakty", "Контакты"),
+    ("/ceny/", "Цены"),
+    ("/kak-eto-rabotaet/", "Как это работает"),
+    ("/kontakty/", "Контакты"),
 ]
 
 
@@ -163,7 +163,8 @@ def footer_html():
 
 
 def page_shell(active_path, title, description, body, canonical_path, extra_head=""):
-    canonical = SITE_URL.rstrip("/") + canonical_path
+   clean_path = "/" + canonical_path.strip("/") + "/" if canonical_path != "/" else "/"
+canonical = SITE_URL.rstrip("/") + clean_path
     return """<!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -468,7 +469,7 @@ def build_format_page(slug, data):
     <p class="lead">{lead}</p>
     <div class="btn-row">
       <a href="{telegram}" target="_blank" rel="noreferrer noopener" class="btn btn-primary">Написать в Телеграм</a>
-      <a href="/ceny" class="btn btn-secondary">Узнать цены</a>
+      <a href="/ceny/" class="btn btn-secondary">Узнать цены</a>
     </div>
   </div>
 </section>
@@ -540,10 +541,10 @@ def build_prices_page():
         <tr><td>2 часа 5 минут</td><td>600 ₽</td></tr>
       </tbody>
     </table>
-    <p class="price-note">Точную длительность записи заранее знают не все — поэтому перед началом работы я бесплатно просматриваю кассету, определяю продолжительность записи и только после этого называю ориентировочную стоимость. Подробнее о порядке работы — на странице <a href="/kak-eto-rabotaet">Как это работает</a>.</p>
+    <p class="price-note">Точную длительность записи заранее знают не все — поэтому перед началом работы я бесплатно просматриваю кассету, определяю продолжительность записи и только после этого называю ориентировочную стоимость. Подробнее о порядке работы — на странице <a href="/kak-eto-rabotaet/">Как это работает</a>.</p>
     <div class="btn-row">
       <a href="{telegram}" target="_blank" rel="noreferrer noopener" class="btn btn-primary">Узнать точную стоимость</a>
-      <a href="/kak-eto-rabotaet" class="btn btn-secondary">Как это работает</a>
+      <a href="/kak-eto-rabotaet/" class="btn btn-secondary">Как это работает</a>
     </div>
   </div>
 </section>
@@ -556,7 +557,7 @@ def build_prices_page():
         <tr><th>Формат</th><th>Стоимость</th></tr>
       </thead>
       <tbody>
-        <tr><td><a href="/vhs">VHS</a></td><td rowspan="9" style="vertical-align:middle;">200 ₽ за начатый час записи</td></tr>
+        <tr><td><a href="/vhs/">VHS</a></td><td rowspan="9" style="vertical-align:middle;">200 ₽ за начатый час записи</td></tr>
         <tr><td><a href="/vhs-c">VHS-C</a></td></tr>
         <tr><td><a href="/s-vhs">S-VHS</a></td></tr>
         <tr><td><a href="/hi8-video8">Video8</a></td></tr>
@@ -638,7 +639,9 @@ def build_how_it_works_page():
 <section class="section section--shade">
   <div class="container">
     <h2>Почему сначала просмотр, а потом стоимость</h2>
-    <p>Продолжительность записи на разных кассетах отличается, поэтому точную стоимость невозможно назвать заранее — только после того, как кассета просмотрена и определена длительность видео. Это тот же принцип расчёта, что описан на странице <a href="/ceny">Цены</a>.</p>
+    <p>Продолжительность записи на разных кассетах отличается, поэтому точную стоимость невозможно назвать заранее — только после того, как кассета просмотрена и определена длительность видео. Это тот же принцип расчёта, что описан на странице <a href="/ceny/
+    
+    ">Цены</a>.</p>
   </div>
 </section>
 
@@ -648,7 +651,7 @@ def build_how_it_works_page():
     <p>Отправьте фотографию кассеты в Телеграм — я помогу определить формат и расскажу, что нужно для оцифровки.</p>
     <div class="btn-row">
       <a href="{telegram}" target="_blank" rel="noreferrer noopener" class="btn btn-primary">📷 Отправить фото кассеты</a>
-      <a href="/ceny" class="btn btn-secondary">Узнать цены</a>
+      <a href="/ceny/" class="btn btn-secondary">Узнать цены</a>
     </div>
   </div>
 </section>
@@ -659,7 +662,7 @@ def build_how_it_works_page():
       <h3>Форматы кассет, с которыми я работаю</h3>
       <ul>
         {format_links}
-        <li><a href="/kontakty">Контакты</a></li>
+        <li><a href="/kontakty/">Контакты</a></li>
       </ul>
     </div>
   </div>
@@ -731,8 +734,8 @@ def build_contacts_page():
       <h3>Также вам может быть полезно</h3>
       <ul>
         <li><a href="/">Главная</a></li>
-        <li><a href="/ceny">Цены</a></li>
-        <li><a href="/kak-eto-rabotaet">Как проходит оцифровка</a></li>
+        <li><a href="/ceny/">Цены</a></li>
+        <li><a href="/kak-eto-rabotaet/">Как проходит оцифровка</a></li>
       </ul>
     </div>
   </div>
