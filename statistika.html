@@ -1,0 +1,373 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Статистика сайта</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="stylesheet" href="/assets/css/site.css">
+
+  <style>
+    body {
+      background: #f7f5f3;
+      color: #2b1a13;
+    }
+
+    .stats-page {
+      max-width: 1100px;
+      margin: 45px auto;
+      padding: 0 20px 60px;
+    }
+
+    .stats-heading {
+      margin-bottom: 28px;
+    }
+
+    .stats-heading h1 {
+      margin-bottom: 8px;
+      color: #2b1a13;
+    }
+
+    .stats-muted {
+      color: #777;
+      font-size: 14px;
+    }
+
+    .stats-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .stats-controls button {
+      border: 1px solid #d9c9bf;
+      background: #fff;
+      color: #563323;
+      border-radius: 8px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .stats-controls button.active {
+      background: #7b3a22;
+      border-color: #7b3a22;
+      color: #fff;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .stats-card {
+      background: #fff;
+      border: 1px solid #eee5df;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 3px 12px rgba(43,26,19,.045);
+    }
+
+    .stats-card-label {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .stats-number {
+      font-size: 36px;
+      font-weight: 700;
+      color: #7b3a22;
+      line-height: 1.2;
+    }
+
+    .stats-chart-card {
+      background: #fff;
+      border: 1px solid #eee5df;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 3px 12px rgba(43,26,19,.045);
+    }
+
+    .stats-chart-card h2 {
+      font-size: 20px;
+      margin: 0 0 20px;
+    }
+
+    .stats-chart-wrap {
+      width: 100%;
+      height: 280px;
+      position: relative;
+    }
+
+    #visits-chart {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .stats-status {
+      margin-top: 18px;
+      font-size: 13px;
+      color: #777;
+    }
+
+    .stats-error {
+      color: #b42318;
+      background: #fff1f0;
+      padding: 14px;
+      border-radius: 8px;
+      display: none;
+      margin-bottom: 18px;
+    }
+
+    .stats-loading {
+      color: #7b3a22;
+      margin: 18px 0;
+    }
+
+    @media (max-width: 600px) {
+      .stats-page {
+        margin-top: 28px;
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .stats-grid {
+        gap: 10px;
+      }
+
+      .stats-card {
+        padding: 17px;
+      }
+
+      .stats-number {
+        font-size: 29px;
+      }
+
+      .stats-chart-card {
+        padding: 16px;
+      }
+
+      .stats-chart-wrap {
+        height: 230px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="/" class="site-logo">
+      Оцифровка видеокассет
+      <span>в Новокузнецке</span>
+    </a>
+    <a href="/" class="header-cta">На главную</a>
+  </div>
+</header>
+
+<main class="stats-page">
+
+  <div class="stats-heading">
+    <h1>Статистика сайта</h1>
+    <p class="stats-muted">
+      Данные Яндекс Метрики
+    </p>
+  </div>
+
+  <div class="stats-controls">
+    <button type="button" data-period="today">Сегодня</button>
+    <button type="button" data-period="week" class="active">7 дней</button>
+    <button type="button" data-period="month">30 дней</button>
+  </div>
+
+  <div id="stats-error" class="stats-error"></div>
+  <div id="stats-loading" class="stats-loading">Загрузка статистики...</div>
+
+  <section class="stats-grid">
+
+    <div class="stats-card">
+      <div class="stats-card-label">Визиты</div>
+      <div class="stats-number" id="stats-visits">—</div>
+    </div>
+
+    <div class="stats-card">
+      <div class="stats-card-label">Посетители</div>
+      <div class="stats-number" id="stats-users">—</div>
+    </div>
+
+  </section>
+
+  <section class="stats-chart-card">
+    <h2>Посещения по дням</h2>
+    <div class="stats-chart-wrap">
+      <svg id="visits-chart"
+           viewBox="0 0 900 280"
+           preserveAspectRatio="none"
+           role="img"
+           aria-label="График количества визитов по дням">
+      </svg>
+    </div>
+    <div class="stats-status" id="stats-updated"></div>
+  </section>
+
+</main>
+
+<script>
+(function () {
+  const API =
+    'https://hidden-field-0f16.alex-emeljanoq.workers.dev/stats';
+
+  const visitsElement = document.getElementById('stats-visits');
+  const usersElement = document.getElementById('stats-users');
+  const chart = document.getElementById('visits-chart');
+  const errorElement = document.getElementById('stats-error');
+  const loadingElement = document.getElementById('stats-loading');
+  const updatedElement = document.getElementById('stats-updated');
+  const buttons = document.querySelectorAll('[data-period]');
+
+  function drawChart(rows) {
+    const width = 900;
+    const height = 280;
+    const left = 45;
+    const right = 20;
+    const top = 20;
+    const bottom = 45;
+
+    const values = rows.map(row => Number(row.visits) || 0);
+    const maxValue = Math.max(1, ...values);
+    const plotWidth = width - left - right;
+    const plotHeight = height - top - bottom;
+
+    let html = '';
+
+    for (let i = 0; i <= 4; i++) {
+      const y = top + plotHeight * i / 4;
+      const value = Math.round(maxValue * (4 - i) / 4);
+
+      html += `
+        <line x1="${left}" y1="${y}" x2="${width-right}" y2="${y}"
+          stroke="#eee5df" stroke-width="1"/>
+        <text x="${left-10}" y="${y+4}" text-anchor="end"
+          font-size="12" fill="#888">${value}</text>
+      `;
+    }
+
+    const points = values.map((value, index) => {
+      const x = rows.length === 1
+        ? left + plotWidth / 2
+        : left + plotWidth * index / (rows.length - 1);
+
+      const y = top + plotHeight * (1 - value / maxValue);
+
+      return { x, y, value, row: rows[index] };
+    });
+
+    if (points.length > 1) {
+      const line = points.map((p, i) =>
+        `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`
+      ).join(' ');
+
+      html += `
+        <path d="${line}" fill="none"
+          stroke="#7b3a22" stroke-width="4"
+          stroke-linecap="round" stroke-linejoin="round"/>
+      `;
+    }
+
+    points.forEach(p => {
+      const label = p.row.date.slice(5).split('-').reverse().join('.');
+
+      html += `
+        <circle cx="${p.x}" cy="${p.y}" r="5" fill="#7b3a22"/>
+        <text x="${p.x}" y="${p.y-12}" text-anchor="middle"
+          font-size="13" font-weight="bold" fill="#563323">${p.value}</text>
+        <text x="${p.x}" y="${height-12}" text-anchor="middle"
+          font-size="12" fill="#888">${label}</text>
+      `;
+    });
+
+    chart.innerHTML = html;
+  }
+
+  async function loadStats(period) {
+    errorElement.style.display = 'none';
+    loadingElement.style.display = 'block';
+    loadingElement.textContent = 'Загрузка статистики...';
+
+    visitsElement.textContent = '—';
+    usersElement.textContent = '—';
+    chart.innerHTML = '';
+
+    buttons.forEach(button => {
+      button.classList.toggle(
+        'active',
+        button.dataset.period === period
+      );
+    });
+
+    try {
+      const response = await fetch(
+        API + '?period=' + encodeURIComponent(period),
+        { cache: 'no-store' }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.details?.message ||
+          data.error ||
+          'Ошибка загрузки статистики'
+        );
+      }
+
+      visitsElement.textContent =
+        Number(data.visits || 0).toLocaleString('ru-RU');
+
+      usersElement.textContent =
+        Number(data.users || 0).toLocaleString('ru-RU');
+
+      const rows = data.rows || [];
+
+      drawChart(rows);
+
+      updatedElement.textContent =
+        'Обновлено: ' +
+        new Date().toLocaleString('ru-RU');
+
+      loadingElement.style.display = 'none';
+
+    } catch (error) {
+      console.error(error);
+
+      loadingElement.style.display = 'none';
+      errorElement.textContent =
+        'Не удалось загрузить данные: ' + error.message;
+      errorElement.style.display = 'block';
+    }
+  }
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      loadStats(button.dataset.period);
+    });
+  });
+
+  loadStats('week');
+})();
+</script>
+
+</body>
+</html>
+```
