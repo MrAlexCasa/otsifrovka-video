@@ -1,12 +1,5 @@
 /* ==========================================================================
    Оцифровка видеокассет в Новокузнецке — общие стили многостраничного сайта
-   Палитра и шрифты взяты из фирменного стиля оригинального Wix-сайта:
-     --brand-bg      #FFFDF7  (--wst-base-1-color, светлый тёплый фон)
-     --brand-dark    #2F1B12  (--wst-base-2-color, тёмный шоколад — футер, текст)
-     --brand-accent  #8F3E1E  (--wst-accent-1-color, терракотовые кнопки/ссылки)
-     --brand-accent2 #D4CBBE  (--wst-accent-2-color)
-     --brand-shade   #F7F2EB  (--wst-shade-1-color, светлые панели)
-     --brand-shade2  #E5DACE  (--wst-shade-2-color)
    ========================================================================== */
 
 :root {
@@ -21,43 +14,11 @@
   --brand-shade-2: #E5DACE;
   --brand-shade-3: #5C4A42;
 
-  --font-heading: 'Recoleta', Georgia, 'Times New Roman', serif;
-  --font-body: 'MinionPro', Georgia, 'Times New Roman', serif;
+  /* Системные шрифты — без внешних запросов и 404 */
+  --font-heading: Georgia, 'Times New Roman', 'Liberation Serif', serif;
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
   --container-max: 1140px;
-}
-
-@font-face {
-  font-family: 'Recoleta';
-  font-style: normal;
-  font-weight: 400;
-  src: url('../fonts/recoleta.cyrillic.woff2') format('woff2');
-  unicode-range: U+0400-04FF;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Recoleta';
-  font-style: normal;
-  font-weight: 900;
-  src: url('//static.parastorage.com/fonts/v2/e958a33f-3c4d-476a-b8a7-dd3cadd36747/v1/recoleta.cyrillic.woff2') format('woff2');
-  unicode-range: U+0400-04FF;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'MinionPro';
-  font-style: normal;
-  font-weight: 400;
-  src: url('//static.parastorage.com/fonts/v2/13b0b93d-2bac-4e05-81b2-b7b3fd9cc788/v1/minion-pro.cyrillic.woff2') format('woff2');
-  unicode-range: U+0400-04FF;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'MinionPro';
-  font-style: normal;
-  font-weight: 700;
-  src: url('//static.parastorage.com/fonts/v2/b04cf476-4910-4dcf-88bb-1c2b63227a13/v1/minion-pro.cyrillic.woff2') format('woff2');
-  unicode-range: U+0400-04FF;
-  font-display: swap;
 }
 
 * { box-sizing: border-box; }
@@ -355,9 +316,7 @@ p { margin: 0 0 16px; }
   margin-top: 8px;
 }
 
-/* Floating contact button (mobile-friendly always-visible CTA).
-   Kept compact (circular icon) so it never covers nearby links/cards
-   in grids that end up in the bottom-right corner while scrolling. */
+/* Floating contact button */
 .floating-cta {
   position: fixed;
   right: 18px;
@@ -385,8 +344,6 @@ p { margin: 0 0 16px; }
   background: var(--brand-accent-hover);
   text-decoration: none;
 }
-/* On roomy desktop viewports, expand into a labeled pill for clarity —
-   there is enough free space there that overlap is not an issue. */
 @media (min-width: 1000px) {
   .floating-cta {
     width: auto;
@@ -460,7 +417,7 @@ p { margin: 0 0 16px; }
   font-size: 14px;
 }
 
-/* Steps list ("Как это работает") */
+/* Steps list */
 .steps-list {
   list-style: none;
   margin: 0;
@@ -559,7 +516,7 @@ p { margin: 0 0 16px; }
   text-decoration: none;
 }
 
-/* Advantages ("Почему обращаются ко мне") */
+/* Advantages */
 .advantages-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -689,10 +646,9 @@ p { margin: 0 0 16px; }
 }
 
 /* ================================================================
-   ГЛАВНАЯ СТРАНИЦА — компактная двухколоночная композиция
+   ГЛАВНАЯ СТРАНИЦА
    ================================================================ */
 
-/* Hero (первый экран) */
 .hero-home {
   padding: 40px 0 52px;
 }
@@ -768,7 +724,6 @@ p { margin: 0 0 16px; }
   .hero-home__media { aspect-ratio: 16 / 10; max-width: 480px; margin: 0 auto; }
 }
 
-/* Секция intro (заголовок + короткое описание сверху секции) */
 .section-intro {
   max-width: 720px;
   margin: 0 0 32px;
@@ -780,7 +735,6 @@ p { margin: 0 0 16px; }
   font-size: 16px;
 }
 
-/* Компактные карточки форматов ("Какие видеокассеты я оцифровываю") */
 .formats-compact-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -827,7 +781,6 @@ p { margin: 0 0 16px; }
   line-height: 1.2;
 }
 
-/* Компактный блок "Стоимость" */
 .price-compact {
   background: #fff;
   border: 1px solid var(--brand-shade-2);
@@ -855,7 +808,6 @@ p { margin: 0 0 16px; }
 }
 .price-compact .btn { flex-shrink: 0; }
 
-/* Шаги "Как это работает" — компактная версия из 4 шагов */
 .steps-list--4 {
   grid-template-columns: repeat(4, 1fr);
 }
@@ -866,7 +818,6 @@ p { margin: 0 0 16px; }
   .steps-list--4 { grid-template-columns: 1fr; }
 }
 
-/* Финальный CTA-блок в конце главной страницы */
 .cta-final {
   text-align: center;
 }
