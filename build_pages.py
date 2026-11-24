@@ -323,7 +323,7 @@ def footer_html():
 def page_shell(active_path, title, description, body, canonical_path, extra_head=""):
    clean_path = "/" + canonical_path.strip("/") + "/" if canonical_path != "/" else "/"
 canonical = SITE_URL.rstrip("/") + clean_path
-return """<!DOCTYPE html>
+   return """<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
