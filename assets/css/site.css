@@ -161,7 +161,16 @@ p { margin: 0 0 16px; }
   list-style: none;
   margin: 6px 0 0;
   z-index: 600;
+}.main-nav__dropdown::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -12px;
+  height: 12px;
+  background: transparent;
 }
+
 .main-nav__item--has-dropdown:hover .main-nav__dropdown,
 .main-nav__item--has-dropdown:focus-within .main-nav__dropdown {
   display: block;
