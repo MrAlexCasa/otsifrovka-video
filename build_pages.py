@@ -315,6 +315,237 @@ def footer_html():
 
     </div>
 </footer>
+<!-- ============================== ПОМОЩНИК САЙТА ============================== -->
+<style>
+#ai-chat {
+    --ai-accent: #7b3a22;
+    --ai-bg: #ffffff;
+    --ai-text: #2b1a13;
+    --ai-soft: #f6efe9;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 9999;
+    font-family: Arial, sans-serif;
+}
+#ai-chat * { box-sizing: border-box; }
+#ai-chat-toggle {
+    height: 56px;
+    padding: 0 20px;
+    border: 0;
+    border-radius: 28px;
+    background: var(--ai-accent);
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0,0,0,.3);
+}
+#ai-chat-window {
+    display: none;
+    flex-direction: column;
+    width: min(360px, calc(100vw - 40px));
+    height: min(480px, calc(100vh - 100px));
+    background: var(--ai-bg);
+    color: var(--ai-text);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,.35);
+}
+#ai-chat-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    background: var(--ai-accent);
+    color: #fff;
+    font-weight: bold;
+    font-size: 15px;
+}
+.ai-chat-logo {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 50%;
+    padding: 3px;
+    flex-shrink: 0;
+}
+#ai-chat-head span { flex: 1; }
+#ai-chat-close {
+    background: none;
+    border: 0;
+    color: #fff;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+}
+#ai-chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px;
+    background: var(--ai-soft);
+    font-size: 14px;
+    line-height: 1.45;
+}
+.ai-msg {
+    max-width: 88%;
+    margin: 0 0 10px;
+    padding: 9px 12px;
+    border-radius: 10px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+.ai-msg.bot { background: #fff; border: 1px solid #e6d8cc; }
+.ai-msg.user { margin-left: auto; background: var(--ai-accent); color: #fff; }
+.ai-chat-contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 9px 10px;
+    background: #fff;
+    border-top: 1px solid #e6d8cc;
+}
+.ai-chat-contacts a {
+    color: #7b3a22;
+    background: #f6efe9;
+    border-radius: 6px;
+    padding: 6px 8px;
+    font-size: 12px;
+    text-decoration: none;
+}
+.ai-chat-contacts a:hover { background: #ead9cb; }
+#ai-chat-form {
+    display: flex;
+    gap: 8px;
+    padding: 10px;
+    border-top: 1px solid #e6d8cc;
+    background: #fff;
+}
+#ai-chat-input {
+    flex: 1;
+    min-width: 0;
+    padding: 9px 10px;
+    border: 1px solid #cdbcae;
+    border-radius: 8px;
+    font-size: 14px;
+}
+#ai-chat-send {
+    padding: 9px 14px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--ai-accent);
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+}
+#ai-chat-send:disabled { opacity: .5; cursor: default; }
+#ai-chat button:focus-visible,
+#ai-chat-input:focus-visible { outline: 3px solid #f0a35e; outline-offset: 2px; }
+@media (max-width: 480px) {
+    #ai-chat { right: 10px; bottom: 10px; }
+    #ai-chat-window { width: calc(100vw - 20px); height: min(520px, calc(100vh - 30px)); }
+}
+</style>
+
+<div id="ai-chat">
+    <button id="ai-chat-toggle" type="button" aria-expanded="false" aria-controls="ai-chat-window">
+        Открыть помощника
+    </button>
+    <div id="ai-chat-window" role="dialog" aria-label="Помощник сайта" aria-modal="false">
+        <div id="ai-chat-head">
+            <img src="https://wixstatic.com" alt="Логотип сервиса оцифровки" class="ai-chat-logo">
+            <span>Помощник</span>
+            <button id="ai-chat-close" type="button" aria-label="Закрыть чат">&times;</button>
+        </div>
+        <div id="ai-chat-messages" aria-live="polite"></div>
+        <div class="ai-chat-contacts">
+            <a href="tel:+79530650679">Позвонить</a>
+            <a href="https://t.me" target="_blank" rel="noopener noreferrer">Telegram</a>
+            <a href="mailto:otsifrovka-video@mail.ru">Электронная почта</a>
+            <a href="https://ok.ru" target="_blank" rel="noopener noreferrer">Одноклассники</a>
+            <a href="https://avito.ru" target="_blank" rel="noopener noreferrer">Авито</a>
+        </div>
+        <div id="ai-chat-form">
+            <input id="ai-chat-input" type="text" maxlength="500" placeholder="Напишите ваш вопрос" aria-label="Ваш вопрос">
+            <button id="ai-chat-send" type="button">Отправить</button>
+        </div>
+    </div>
+</div>
+
+<script>
+(function () {
+    const WORKER_URL = 'https://workers.dev';
+    const toggleBtn = document.getElementById('ai-chat-toggle');
+    const closeBtn = document.getElementById('ai-chat-close');
+    const chatWindow = document.getElementById('ai-chat-window');
+    const messages = document.getElementById('ai-chat-messages');
+    const input = document.getElementById('ai-chat-input');
+    const sendBtn = document.getElementById('ai-chat-send');
+
+    function addMessage(kind, text) {
+        const div = document.createElement('div');
+        div.className = 'ai-msg ' + kind;
+        div.textContent = text;
+        messages.appendChild(div);
+        messages.scrollTop = messages.scrollHeight;
+        return div;
+    }
+
+    function openChat() {
+        chatWindow.style.display = 'flex';
+        toggleBtn.style.display = 'none';
+        toggleBtn.setAttribute('aria-expanded', 'true');
+        if (!messages.children.length) {
+            addMessage('bot', 'Здравствуйте! Могу я вам помочь? Подскажу по форматам кассет, стоимости и порядку оцифровки.');
+        }
+        input.focus();
+    }
+
+    function closeChat() {
+        chatWindow.style.display = 'none';
+        toggleBtn.style.display = 'block';
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        toggleBtn.focus();
+    }
+
+    async function sendMessage() {
+        const messageText = input.value.trim();
+        if (!messageText || sendBtn.disabled) return;
+        addMessage('user', messageText);
+        input.value = '';
+        sendBtn.disabled = true;
+        const pending = addMessage('bot', 'Думаю…');
+
+        try {
+            const response = await fetch(WORKER_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: messageText })
+            });
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+            const data = await response.json();
+            pending.textContent = data.reply || 'Не удалось получить ответ.';
+        } catch (error) {
+            console.error('Ошибка помощника:', error);
+            pending.textContent = 'Сейчас не получается ответить. Вы можете связаться со мной по телефону +7-953-065-06-79, написать в Telegram или на электронную почту otsifrovka-video@mail.ru.';
+        } finally {
+            sendBtn.disabled = false;
+            messages.scrollTop = messages.scrollHeight;
+            input.focus();
+        }
+    }
+
+    toggleBtn.addEventListener('click', openChat);
+    closeBtn.addEventListener('click', closeChat);
+    sendBtn.addEventListener('click', sendMessage);
+    input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') sendMessage();
+    });
+})();
+</script>
+
 <script src="/assets/js/site.js"></script>
 """
 
