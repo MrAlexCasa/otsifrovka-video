@@ -1,4 +1,3 @@
-
 ```html
 <!DOCTYPE html>
 <html lang="ru">
@@ -20,17 +19,30 @@
 
 <style>
 .contact-methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
     align-items: stretch;
 }
 
 .contact-card {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
 }
 
-.contact-card .btn {
+.contact-methods .contact-card a.btn {
+    width: 100%;
     margin-top: auto;
-    align-self: flex-start;
+    align-self: stretch;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+@media (max-width: 800px) {
+    .contact-methods {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 
@@ -314,6 +326,7 @@
 
     </div>
 </footer>
+
 <!-- ============================== ПОМОЩНИК САЙТА ============================== -->
 <style>
 #ai-chat {
