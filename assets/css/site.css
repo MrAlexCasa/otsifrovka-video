@@ -1,3 +1,4 @@
+```css
 /* ==========================================================================
    Оцифровка видеокассет в Новокузнецке — общие стили многостраничного сайта
    ========================================================================== */
@@ -161,7 +162,8 @@ p { margin: 0 0 16px; }
   list-style: none;
   margin: 6px 0 0;
   z-index: 600;
-}.main-nav__dropdown::before {
+}
+.main-nav__dropdown::before {
   content: "";
   position: absolute;
   left: 0;
@@ -580,18 +582,30 @@ p { margin: 0 0 16px; }
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   margin-top: 24px;
+  align-items: stretch;
 }
+
 @media (max-width: 800px) {
   .contact-methods { grid-template-columns: 1fr; }
 }
+
 .contact-card {
   background: #fff;
   border: 1px solid var(--brand-shade-2);
   border-radius: 14px;
   padding: 20px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.contact-card a.btn { width: 100%; justify-content: center; margin-top: 10px; }
+
+.contact-card a.btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: auto;
+  align-self: stretch;
+}
 
 /* ---------------------------------------------------------------- Footer */
 .site-footer {
@@ -863,3 +877,4 @@ p { margin: 0 0 16px; }
 .text-center { text-align: center; }
 .mt-0 { margin-top: 0; }
 .mb-0 { margin-bottom: 0; }
+```
