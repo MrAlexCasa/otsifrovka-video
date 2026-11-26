@@ -11,10 +11,6 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://otsifrovka-video.ru/">
     <link rel="icon" type="image/png" href="/favicon.png">
-<script>
-(function () {
-    const WORKER_URL =
-        'https://dry-leaf-d8fd.alex-emeljanoq.workers.dev';
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8R817RVHK4"></script>
@@ -22,26 +18,6 @@
         window.dataLayer = window.dataLayer || [];
         function gtag() {
             dataLayer.push(arguments);
-    // Мобильное меню
-    const nav = document.querySelector('.main-nav');
-    const navToggle = document.querySelector('.nav-toggle');
-    const navLinks = nav ? nav.querySelectorAll('a') : [];
-    const dropdownItem = document.querySelector(
-        '.main-nav__item--has-dropdown'
-    );
-    const dropdownToggle = dropdownItem
-        ? dropdownItem.querySelector(':scope > a')
-        : null;
-
-    function closeMenu() {
-        if (!nav || !navToggle) return;
-
-        nav.classList.remove('is-open');
-        navToggle.setAttribute('aria-expanded', 'false');
-        navToggle.setAttribute('aria-label', 'Открыть меню');
-
-        if (dropdownItem) {
-            dropdownItem.classList.remove('is-open');
         }
         gtag('js', new Date());
         gtag('config', 'G-8R817RVHK4');
@@ -129,9 +105,6 @@
             "https://ok.ru/otsifrovka.noz1",
             "https://www.avito.ru/novokuznetsk/predlozheniya_uslug/otsifrovka_vhs_vhs-c_hi8_minidv_dvd_novokuznetsk_837292697"
         ]
-        if (dropdownToggle) {
-            dropdownToggle.setAttribute('aria-expanded', 'false');
-        }
     }
     </script>
 
@@ -898,7 +871,6 @@
     </section>
 
 </main>
-   
 
 <!-- ============================== ПОДВАЛ ============================== -->
 <footer class="footer" style="padding:60px 0;background:#2b1a13;color:#fff;">
@@ -1216,22 +1188,12 @@
     background: #fff;
     border: 1px solid #e6d8cc;
 }
-            navToggle.setAttribute('aria-expanded', String(isOpen));
-            navToggle.setAttribute(
-                'aria-label',
-                isOpen ? 'Закрыть меню' : 'Открыть меню'
-            );
 
 .ai-msg.user {
     margin-left: auto;
     background: var(--ai-accent);
     color: #fff;
 }
-            if (!isOpen && dropdownItem) {
-                dropdownItem.classList.remove('is-open');
-                dropdownToggle.setAttribute('aria-expanded', 'false');
-            }
-        });
 
 .ai-chat-contacts {
     display: flex;
@@ -1241,11 +1203,6 @@
     background: #fff;
     border-top: 1px solid #e6d8cc;
 }
-        // Выпадающее меню форматов на телефонах
-        if (dropdownToggle && dropdownItem) {
-            dropdownToggle.addEventListener('click', function (event) {
-                if (window.matchMedia('(max-width: 900px)').matches) {
-                    event.preventDefault();
 
 .ai-chat-contacts a {
     color: #7b3a22;
@@ -1255,18 +1212,10 @@
     font-size: 12px;
     text-decoration: none;
 }
-                    const isOpen =
-                        dropdownItem.classList.toggle('is-open');
 
 .ai-chat-contacts a:hover {
     background: #ead9cb;
 }
-                    dropdownToggle.setAttribute(
-                        'aria-expanded',
-                        String(isOpen)
-                    );
-                } else {
-                    event.preventDefault();
 
 #ai-chat-form {
     display: flex;
@@ -1275,8 +1224,6 @@
     border-top: 1px solid #e6d8cc;
     background: #fff;
 }
-                    const isOpen =
-                        dropdownItem.classList.toggle('is-open');
 
 #ai-chat-input {
     flex: 1;
@@ -1286,13 +1233,6 @@
     border-radius: 8px;
     font-size: 14px;
 }
-                    dropdownToggle.setAttribute(
-                        'aria-expanded',
-                        String(isOpen)
-                    );
-                }
-            });
-        }
 
 #ai-chat-send {
     padding: 9px 14px;
@@ -1303,55 +1243,27 @@
     font-size: 14px;
     cursor: pointer;
 }
-        // Закрытие меню после перехода по ссылке
-        navLinks.forEach(function (link) {
-            if (link === dropdownToggle) return;
 
 #ai-chat-send:disabled {
     opacity: .5;
     cursor: default;
 }
-            link.addEventListener('click', closeMenu);
-        });
 
 #ai-chat button:focus-visible,
 #ai-chat-input:focus-visible {
     outline: 3px solid #f0a35e;
     outline-offset: 2px;
 }
-        // Закрытие при нажатии Escape
-        document.addEventListener('keydown', function (event) {
-            if (event.key === 'Escape') {
-                closeMenu();
-                navToggle.focus();
-            }
-        });
 
 @media (max-width: 480px) {
     #ai-chat {
         right: 10px;
         bottom: 10px;
     }
-        // Закрытие при клике за пределами меню
-        document.addEventListener('click', function (event) {
-            if (
-                nav.classList.contains('is-open') &&
-                !nav.contains(event.target) &&
-                !navToggle.contains(event.target)
-            ) {
-                closeMenu();
-            }
-        });
 
     #ai-chat-window {
         width: calc(100vw - 20px);
         height: min(520px, calc(100vh - 30px));
-        // При переходе на большой экран сбрасываем мобильное меню
-        window.addEventListener('resize', function () {
-            if (window.innerWidth > 900) {
-                closeMenu();
-            }
-        });
     }
 }
 </style>
@@ -1442,11 +1354,129 @@
     const WORKER_URL =
         'https://dry-leaf-d8fd.alex-emeljanoq.workers.dev';
 
-    // Помощник сайта
     const toggleBtn = document.getElementById('ai-chat-toggle');
     const closeBtn = document.getElementById('ai-chat-close');
     const chatWindow = document.getElementById('ai-chat-window');
-@@ -1480,117 +235,3 @@ <h5 style="color:#fff;margin-bottom:12px;font-size:14px;text-transform:uppercase
+    const messages = document.getElementById('ai-chat-messages');
+    const input = document.getElementById('ai-chat-input');
+    const sendBtn = document.getElementById('ai-chat-send');
+
+    function addMessage(kind, text) {
+        const div = document.createElement('div');
+
+        div.className = 'ai-msg ' + kind;
+        div.textContent = text;
+
+        messages.appendChild(div);
+        messages.scrollTop = messages.scrollHeight;
+
+        return div;
+    }
+
+    function openChat() {
+        chatWindow.style.display = 'flex';
+        toggleBtn.style.display = 'none';
+
+        toggleBtn.setAttribute('aria-expanded', 'true');
+
+        if (!messages.children.length) {
+            addMessage(
+                'bot',
+                'Здравствуйте! Могу я вам помочь? Подскажу по форматам кассет, стоимости и порядку оцифровки.'
+            );
+        }
+
+        input.focus();
+    }
+
+    function closeChat() {
+        chatWindow.style.display = 'none';
+        toggleBtn.style.display = 'block';
+
+        toggleBtn.setAttribute('aria-expanded', 'false');
+
+        toggleBtn.focus();
+    }
+
+    async function sendMessage() {
+        const messageText = input.value.trim();
+
+        if (!messageText || sendBtn.disabled) {
+            return;
+        }
+
+        addMessage('user', messageText);
+
+        input.value = '';
+        sendBtn.disabled = true;
+
+        const pending = addMessage('bot', 'Думаю…');
+
+        try {
+            const response = await fetch(WORKER_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: messageText
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('HTTP ' + response.status);
+            }
+
+            const data = await response.json();
+
+            pending.textContent =
+                data.reply || 'Не удалось получить ответ.';
+
+        } catch (error) {
+            console.error('Ошибка помощника:', error);
+
+            pending.textContent =
+                'Сейчас не получается ответить. Вы можете связаться со мной по телефону +7-953-065-06-79, написать в Telegram или на электронную почту otsifrovka-video@mail.ru.';
+
+        } finally {
+            sendBtn.disabled = false;
+            messages.scrollTop = messages.scrollHeight;
+            input.focus();
+        }
+    }
+
+    toggleBtn.addEventListener('click', openChat);
+    closeBtn.addEventListener('click', closeChat);
+    sendBtn.addEventListener('click', sendMessage);
+
+    input.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            sendMessage();
+        }
+    });
+
+    // Кнопка копирования ссылки на сайт
+    const copyButton = document.getElementById('copy-site-link');
+
+    if (copyButton) {
+        copyButton.addEventListener('click', function () {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText('https://otsifrovka-video.ru/')
+                    .then(function () {
+                        alert('Ссылка скопирована!');
+                    })
+                    .catch(function () {
+                        alert('Не удалось скопировать ссылку.');
+                    });
+            } else {
+                alert('Копирование не поддерживается этим браузером.');
+            }
+        });
+    }
+
+    // Автоматическое открытие помощника через 1 секунду
+    setTimeout(openChat, 1000);
 
 })();
 </script>
