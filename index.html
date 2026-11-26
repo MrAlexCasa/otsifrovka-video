@@ -1591,6 +1591,52 @@
     }
 })();
 </script>
+<script>
+(function () {
+    const nav = document.querySelector('.main-nav');
+    const navToggle = document.querySelector('.nav-toggle');
+    const dropdownItem = document.querySelector('.main-nav__item--has-dropdown');
+    const dropdownToggle = dropdownItem ? dropdownItem.querySelector(':scope > a') : null;
+
+    if (!nav || !navToggle) return;
+
+    function closeMenu() {
+        nav.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.setAttribute('aria-label', 'Открыть меню');
+        if (dropdownItem) {
+            dropdownItem.classList.remove('is-open');
+            if (dropdownToggle) dropdownToggle.setAttribute('aria-expanded', 'false');
+        }
+    }
+
+    navToggle.addEventListener('click', function () {
+        const isOpen = nav.classList.toggle('is-open');
+        navToggle.setAttribute('aria-expanded', String(isOpen));
+        navToggle.setAttribute('aria-label', isOpen ? 'Закрыть меню' : 'Открыть меню');
+    });
+
+    if (dropdownToggle) {
+        dropdownToggle.addEventListener('click', function (e) {
+            e.preventDefault();
+            const isDropdownOpen = dropdownItem.classList.toggle('is-open');
+            dropdownToggle.setAttribute('aria-expanded', String(isDropdownOpen));
+        });
+    }
+
+    nav.querySelectorAll('a').forEach(function (link) {
+        if (link !== dropdownToggle) {
+            link.addEventListener('click', closeMenu);
+        }
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!nav.contains(e.target) && !navToggle.contains(e.target)) {
+            closeMenu();
+        }
+    });
+})();
+</script>
 
 </body>
 </html>
